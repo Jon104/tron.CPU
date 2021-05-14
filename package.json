@@ -4,7 +4,7 @@
   "description": "J.A.R.V.I.S is your personal bot that helps you create faster and better React applications",
   "author": "Jonathan Girard",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "ws": "^7.4.5"
