@@ -1,3 +1,6 @@
+var fs = require('fs');
+var dir = '/home/jarvis/code/';
+
 const WebSocket = require('ws');
 const wso = new WebSocket.Server({ port: 8080 });
 
@@ -7,8 +10,14 @@ wso.on('connection', function connection(ws, req) {
 
   ws.on('message', incoming = (data) => {
     const parsedData = JSON.parse(data)
-    console.log(parsedData.command)
-    switch(parsedData.command) {
+    const splittedData = parsedData.command.split('_')
+    
+    switch(splittedData[0]) {
+      case 'createDir':
+        const path = dir + splittedData[1];
+        if (!fs.existsSync(path)) fs.mkdirSync(path);
+        ws.send('created the directory')
+        break;
       case 'workModeEnabled':
         ws.send("Work mode enable! I'm sure we'll be focused for AT LEAST 7 minutes this time!")
         ws.send("PlayWeBuiltThisCity")
