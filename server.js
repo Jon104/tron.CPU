@@ -52,6 +52,16 @@ wso.on('connection', function connection(ws, req) {
         fs.writeFile(components.concat(`${splittedData[1]}`) + '.jsx', componentInitFunction(splittedData[1]), errorHandling);
         ws.send('I created a react hook component, and I liked it..!')
         break;
+      case 'createMethod':
+        const newPath = components.concat('cast').concat('.jsx');
+        const test2 = fs.readFileSync(newPath).toString()
+        const array = test2.split("\n");
+        const test = array.findIndex((current) => current.includes('return'))
+        const toWrite = `  const ${splittedData[1]} = () => console.log('Not yet implemented')\r\n`
+        array.splice(test, 0, toWrite)
+        const toString = array.toString().replace(/,/g, '')
+        fs.writeFile(newPath, toString, errorHandling);
+        break;
       case 'deletePackage':
         exec(`yarn remove ${splittedData[1]}`, {cwd: cwd}, errorHandling);
         ws.send('I removed the package!')
@@ -60,14 +70,11 @@ wso.on('connection', function connection(ws, req) {
         ws.send("Work mode enable! I'm sure we'll be focused for AT LEAST 7 minutes this time!")
         ws.send("PlayWeBuiltThisCity")
         break;
-      case 'orderPizza':
-        ws.send('Sending the pizza right now')
-        break;
       case 'salutation':
-        ws.send('Hello to you')
+        ws.send('Hello to you my dear old friend')
         break;
       case 'stopMusic':
-        ws.send('Awww... it was my favorite tune! .. Stopping it..')
+        ws.send('Awww... it was my favorite song....!')
         break;
       case 'howAreYou':
         ws.send("I'm good. How about you?")
