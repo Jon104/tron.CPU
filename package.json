@@ -1,18 +1,24 @@
 {
-  "name": "jarvis",
-  "version": "0.0.1",
-  "description": "J.A.R.V.I.S is your personal bot that helps you create faster and better React applications",
-  "author": "Jonathan Girard",
-  "scripts": {
-    "start": "nodemon server.js"
-  },
+  "author": "Jonathan Girard - girardjon@hotmail.com",
   "dependencies": {
     "ws": "^7.4.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
+  },
+  "description": "J.A.R.V.I.S is your personal bot that helps you create faster and better React applications",
+  "keywords": [
+    "J.A.R.V.I.S",
+    "jarvis",
+    "Just A Rather Very Intelligent System",
+    "react",
+    "bot"
+  ],
+  "license": "GNU GPLv3",
+  "name": "jarvis",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
-  }
+  "version": "0.0.1"
 }
