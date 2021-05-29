@@ -42,9 +42,7 @@ const createReducer = (ws, name) => {
   if (!fs.existsSync(reducersIndex)) fs.writeFile(reducersIndex, reducerIndexTemplate(name), errorHandling)
   
   const path = `${name}Reducer` + '.js'
-  console.log(reducers + path)
   fs.writeFile(reducers + path, reducerBasicTemplate(name), errorHandling)
-  console.log("here4")
   ws.send(`I created a reducer called ${name}, and I liked it..!`)
 }
 
