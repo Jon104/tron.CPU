@@ -15,7 +15,7 @@
     "bot"
   ],
   "license": "GNU GPLv3",
-  "name": "jarvis",
+  "name": "just-a-rather-very-intelligent-system",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
