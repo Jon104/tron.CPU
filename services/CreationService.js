@@ -1,8 +1,17 @@
 const fs = require('fs');
 const { exec } = require("child_process");
-const { codeDirectory, components, cwd, reducers, reducersIndex } = require('./constants')
+const { actions, actionsIndex, codeDirectory, components, cwd, reducers, reducersIndex } = require('./constants')
 const { errorHandling } = require('./ErrorHandlers')
-const { componentBasicTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
+const { actionsIndexTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
+
+const createAction = (ws, name) => {
+  if (!fs.existsSync(actions)) fs.mkdirSync(actions);
+  if (!fs.existsSync(actionsIndex)) fs.writeFile(actionsIndex, actionsIndexTemplate(name), errorHandling)
+  
+  const path = `${name}Actions` + '.js'
+  fs.writeFile(actions + path, emptyFileTemplate(), errorHandling)
+  ws.send(`I created a reducer called ${name}, and I liked it..!`)
+}
 
 const createComponent = (ws, name) => {
   if (!fs.existsSync(components)) fs.mkdirSync(components);
@@ -44,4 +53,4 @@ const createReactApp = (ws, name) => exec(`npx create-react-app ${name}`, {cwd: 
 const initGit = (ws) => exec('git init', {cwd: cwd}, errorHandling)
 
 
-module.exports = { createComponent, createDirectory, createMethod, createReactApp, createReducer, initGit }
+module.exports = { createAction, createComponent, createDirectory, createMethod, createReactApp, createReducer, initGit }

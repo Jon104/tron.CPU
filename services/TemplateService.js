@@ -1,3 +1,5 @@
+const actionsIndexTemplate = name => `export * from "./${name}Actions.js"`
+
 const componentBasicTemplate = name => `import React from 'react'
 
 const ${name} = () => {
@@ -10,6 +12,8 @@ const ${name} = () => {
 
 export default ${name}
 `
+
+const emptyFileTemplate = () => ''
 
 const reducerBasicTemplate = name => `const initialState = {}
 
@@ -33,4 +37,4 @@ const rootReducer = combineReducers({
 export default rootReducer;
 `
 
-module.exports = { componentBasicTemplate, reducerBasicTemplate, reducerIndexTemplate }
+module.exports = { actionsIndexTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate }

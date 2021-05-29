@@ -1,5 +1,6 @@
 const { addPackage, removePackage } = require('./services/PackageService');
 const { 
+  createAction,
   createComponent, 
   createDirectory, 
   createMethod, 
@@ -20,6 +21,7 @@ module.exports = (ws, data) => {
     case 'createDir': return createDirectory(ws, parameter)
     case 'initGit': return initGit(ws);
     case 'createReactApp': return createReactApp(ws, parameter)
+    case 'createAction': return createAction(ws, parameter)
     case 'createComponent': return createComponent(ws, parameter)
     case 'createMethod': return createMethod(ws, parameter)
     case 'createReducer': return createReducer(ws, parameter)
