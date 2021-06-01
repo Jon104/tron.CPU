@@ -1,5 +1,5 @@
 const codeDirectory = '/home/jarvis/code/';
-const cwd = codeDirectory + 'wi-fi/';
+const cwd = codeDirectory + 'just-a-rather-very-intelligent-system/';
 const src = 'src/'
 
 const actions = cwd + src + 'actions/'
