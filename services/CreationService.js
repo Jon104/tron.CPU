@@ -43,7 +43,10 @@ const createReducer = (ws, name) => {
   
   const path = `${name}Reducer` + '.js'
   fs.writeFile(reducers + path, reducerBasicTemplate(name), errorHandling)
-  ws.send(`I created a reducer called ${name}, and I liked it..!`)
+
+const createStateModule = (ws, name) => {
+  createReducer(ws, name)
+  createAction(ws, name)
 }
 
 const createReactApp = (ws, name) => exec(`npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling);

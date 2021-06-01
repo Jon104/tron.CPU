@@ -6,6 +6,7 @@ const {
   createMethod, 
   createReactApp, 
   createReducer, 
+  createStateModule,
   initGit } = require('./services/CreationService');
 const { enableWorkMode, howAreYou, thanks } = require('./services/DialogueService')
 
@@ -25,6 +26,7 @@ module.exports = (ws, data) => {
     case 'createComponent': return createComponent(ws, parameter)
     case 'createMethod': return createMethod(ws, parameter)
     case 'createReducer': return createReducer(ws, parameter)
+    case 'createStateModule': return createStateModule(ws, parameter)
     case 'workModeEnabled': return enableWorkMode(ws)
     case 'salutation': return salute(ws)
     case 'stopMusic': return stopMusic(ws)
