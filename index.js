@@ -1,9 +1,12 @@
 const process = require('dotenv').config();
-const WebSocket = require('ws');
-
-const port = process.env.PORT || 8080
-const wso = new WebSocket.Server({ port: port });
+const express = require('express')
+const { Server } = require('ws');
 const controller = require('./controller')
+
+const PORT = process.env.PORT || 3000
+
+const server = express().listen(PORT, () => console.log(`Listening on ${PORT}`))
+const wso = new Server({ server });
 
 wso.on('connection', (ws) => {
   console.log('connected')
