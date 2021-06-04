@@ -2,7 +2,8 @@ const express = require('express')
 const { Server } = require('ws');
 const controller = require('./controller')
 
-const PORT = 3000
+// eslint-disable-next-line no-undef
+const PORT = process.env.PORT || 3000
 
 const server = express().listen(PORT, () => console.log(`Listening on ${PORT}`))
 const wso = new Server({ server });
