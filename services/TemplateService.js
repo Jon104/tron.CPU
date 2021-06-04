@@ -1,5 +1,12 @@
 const actionsIndexTemplate = name => `export * from "./${name}Actions.js"`
 
+const actionGetMethodTemplate = name => `export const ${name} = () => async dispatch => {
+  await axios.get('/toImplement')
+  .then((response) => dispatch({ type: 'TOIMPLEMENT', payload: response.data }))
+  .catch((err) => console.error(err))
+}
+`
+
 const componentBasicTemplate = name => `import React from 'react'
 
 const ${name} = () => {
@@ -37,4 +44,4 @@ const rootReducer = combineReducers({
 export default rootReducer;
 `
 
-module.exports = { actionsIndexTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate }
+module.exports = { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate }

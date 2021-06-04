@@ -2,15 +2,22 @@ const fs = require('fs');
 const { exec } = require("child_process");
 const { actions, actionsIndex, codeDirectory, components, cwd, reducers, reducersIndex } = require('./constants')
 const { errorHandling } = require('./ErrorHandlers')
-const { actionsIndexTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
+const { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
 
-const createAction = (ws, name) => {
+// todo remove websocket from here return string
+const createAction = (ws, { name, file }) => {
+  if (!fs.existsSync(`${file}Actions.js`)) createActions(ws, file) // todo ask the user to confirm creation  
+  createMethod(ws, name, `${actions}${file}Actions.js`, actionGetMethodTemplate(name))
+  // add to export
+}
+
+const createActions = (ws, name) => {
   if (!fs.existsSync(actions)) fs.mkdirSync(actions);
   if (!fs.existsSync(actionsIndex)) fs.writeFile(actionsIndex, actionsIndexTemplate(name), errorHandling)
   
   const path = `${name}Actions` + '.js'
   fs.writeFile(actions + path, emptyFileTemplate(), errorHandling)
-  ws.send(`I created a reducer called ${name}, and I liked it..!`)
+  ws.send(`I created an Action called ${name}!`)
 }
 
 const createComponent = (ws, name) => {
@@ -25,15 +32,17 @@ const createDirectory = (ws, name) => {
   ws.send(`I created a directory called ${name}!`)
 }
 
-const createMethod = (ws, name) => {
-  const newPath = components.concat('cast').concat('.jsx');
-  const test2 = fs.readFileSync(newPath).toString()
-  const array = test2.split("\n");
-  const test = array.findIndex((current) => current.includes('return'))
-  const toWrite = `  const ${name} = () => console.log('Not yet implemented')\r\n`
-  array.splice(test, 0, toWrite)
-  const toString = array.toString().replace(/,/g, '')
-  fs.writeFile(newPath, toString, errorHandling);
+const lineBreaks = "\n";
+const createMethod = (ws, name, path, template) => {
+  const readStream = fs.readFileSync(path).toString()
+  const lines = readStream.split(lineBreaks);
+  console.log()
+  lines.splice(lines.length, 0, template)
+  // forComponents
+  // const test = eachLines.findIndex((current) => current.includes('return'))
+  // const toWrite = `  const ${name} = () => console.log('Not yet implemented')\r\n`
+  // array.splice(test, 0, toWrite)
+  fs.writeFile(path, lines.toString(), errorHandling);
   ws.send(`I create the method called ${name}`)
 }
 
@@ -43,15 +52,20 @@ const createReducer = (ws, name) => {
   
   const path = `${name}Reducer` + '.js'
   fs.writeFile(reducers + path, reducerBasicTemplate(name), errorHandling)
+  ws.send(`I created a reducer called ${name}`)
+}
 
 const createStateModule = (ws, name) => {
   createReducer(ws, name)
   createAction(ws, name)
 }
 
-const createReactApp = (ws, name) => exec(`npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling);
+const createReactApp = (ws, name) => {
+  exec(`npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
+}
 
-const initGit = (ws) => exec('git init', {cwd: cwd}, errorHandling)
+const initGit = () => {
+  exec('git init', {cwd: cwd}, errorHandling)
+}
 
-
-module.exports = { createAction, createComponent, createDirectory, createMethod, createReactApp, createReducer, createStateModule, initGit };
+module.exports = { createAction, createComponent, createDirectory, createMethod, createReactApp, createReducer, createStateModule, initGit }
