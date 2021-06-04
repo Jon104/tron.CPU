@@ -54,4 +54,4 @@ const createReactApp = (ws, name) => exec(`npx create-react-app ${name}`, {cwd: 
 const initGit = (ws) => exec('git init', {cwd: cwd}, errorHandling)
 
 
-module.exports = { createAction, createComponent, createDirectory, createMethod, createReactApp, createReducer, initGit }
+module.exports = { createAction, createComponent, createDirectory, createMethod, createReactApp, createReducer, createStateModule, initGit };
