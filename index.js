@@ -1,8 +1,8 @@
 const WebSocket = require('ws');
-const wso = new WebSocket.Server({ port: 3001 });
+const wso = new WebSocket.Server({ port: 8080 });
 const controller = require('./controller')
 
-wso.on('connection', connection = (ws, req) => {
+wso.on('connection', connection = (ws) => {
   console.log('connected')
   ws.send('Welcome');
   ws.on('message', incoming = (data) => controller(ws, data));
