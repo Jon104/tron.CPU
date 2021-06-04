@@ -1,11 +1,14 @@
+const process = require('dotenv').config();
 const WebSocket = require('ws');
-const wso = new WebSocket.Server({ port: 8080 });
+
+const port = process.env.PORT || 8080
+const wso = new WebSocket.Server({ port: port });
 const controller = require('./controller')
 
-wso.on('connection', connection = (ws) => {
+wso.on('connection', (ws) => {
   console.log('connected')
   ws.send('Welcome');
-  ws.on('message', incoming = (data) => controller(ws, data));
+  ws.on('message', (data) => controller(ws, data));
 });
 
-wso.on('close', close = () => console.log('disconnected'));
+wso.on('close', () => console.log('disconnected'));
