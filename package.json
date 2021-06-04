@@ -4,6 +4,7 @@
     "ws": "^7.4.5"
   },
   "devDependencies": {
+    "eslint": "^7.27.0",
     "nodemon": "^2.0.7"
   },
   "description": "J.A.R.V.I.S is your personal bot that helps you create faster and better React applications",
