@@ -8,6 +8,7 @@ const {
   createReducer,
   createStateModule,
   initGit } = require('./services/CreationService');
+const { salute } = require('./services/DialogueService')
 const { enableWorkMode, howAreYou, thanks } = require('./services/DialogueService')
 
 module.exports = (ws, data) => {

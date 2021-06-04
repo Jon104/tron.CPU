@@ -3,9 +3,12 @@ const { Server } = require('ws');
 const controller = require('./controller')
 
 // eslint-disable-next-line no-undef
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 
-const server = express().listen(PORT, () => console.log(`Listening on ${PORT}`))
+const server = express()
+  // eslint-disable-next-line no-undef
+  .use((req, res) => res.sendFile('./index.html', { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`))
 const wso = new Server({ server });
 
 wso.on('connection', (ws) => {
