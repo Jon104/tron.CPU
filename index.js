@@ -1,5 +1,5 @@
 const express = require('express')
-const { Server } = require('ws');
+const { Server } = require('wss');
 const controller = require('./controller')
 
 // eslint-disable-next-line no-undef
