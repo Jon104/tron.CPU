@@ -18,7 +18,8 @@
   "name": "just-a-rather-very-intelligent-system",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start-dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "version": "0.0.1"
 }
