@@ -1,12 +1,7 @@
 const errorHandling = (error, stdout, stderr) => {
-  if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-  }
-  if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-  }
+  if (error) return console.log(`error: ${error.message}`)
+  if (stderr) return console.log(`stderr: ${stderr}`)
+  
   console.log(`stdout: ${stdout}`);
 }
 
