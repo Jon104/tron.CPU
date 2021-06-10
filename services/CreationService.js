@@ -1,8 +1,8 @@
 const fs = require('fs');
-const { exec } = require("child_process");
 const { actions, actionsIndex, codeDirectory, components, cwd, reducers, reducersIndex } = require('./constants')
 const { errorHandling } = require('./ErrorHandlers')
 const { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
+const { formatActionFilepath, formatComponentFilepath, formatReducerFilepath } = require('./fileUtils')
 
 // todo remove websocket from here return string
 const createAction = (ws, { name, file }) => {
@@ -11,19 +11,18 @@ const createAction = (ws, { name, file }) => {
   // add to export
 }
 
-const createActions = (ws, { name }) => {
+const createActions = name => {
   if (!fs.existsSync(actions)) fs.mkdirSync(actions);
   if (!fs.existsSync(actionsIndex)) fs.writeFile(actionsIndex, actionsIndexTemplate(name), errorHandling)
   
-  const path = `${name}Actions` + '.js'
-  fs.writeFile(actions + path, emptyFileTemplate(), errorHandling)
-  ws.send(`I created an Action called ${name}!`)
+  fs.writeFile(formatActionFilepath(name), emptyFileTemplate(), errorHandling)
+  return `I created an Action called ${name}!`
 }
 
-const createComponent = (ws, { name }) => {
+const createComponent = name => {
   if (!fs.existsSync(components)) fs.mkdirSync(components);
-  fs.writeFile(components.concat(`${name}`) + '.jsx', componentBasicTemplate(name), errorHandling);
-  ws.send(`I created a component called ${name}, and I liked it..!`)
+  fs.writeFile(formatComponentFilepath(name), componentBasicTemplate(name), errorHandling);
+  return `I created a component called ${name}, and I liked it..!`
 }
 
 const createDirectory = (ws, { name }) => {
@@ -46,26 +45,30 @@ const createMethod = (ws, { name, path, template }) => {
   ws.send(`I create the method called ${name}`)
 }
 
-const createReducer = (ws, { name }) => {
+const createReducers = name => {
   if (!fs.existsSync(reducers)) fs.mkdirSync(reducers);
   if (!fs.existsSync(reducersIndex)) fs.writeFile(reducersIndex, reducerIndexTemplate(name), errorHandling)
   
-  const path = `${name}Reducer` + '.js'
-  fs.writeFile(reducers + path, reducerBasicTemplate(name), errorHandling)
-  ws.send(`I created a reducer called ${name}`)
+  fs.writeFile(formatReducerFilepath(name), reducerBasicTemplate(name), errorHandling)
+  return `I created a reducer called ${name}`
 }
 
 const createStateModule = (ws, { name }) => {
-  createReducer(ws, name)
+  createReducers(ws, name)
   createAction(ws, name)
 }
 
-const createReactApp = (ws, { name }) => {
-  exec(`npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
+const createReactApp = (execute, { name }) => {
+  execute( `npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
+  return "I've created a react application"
 }
 
-const initGit = () => {
-  exec('git init', {cwd: cwd}, errorHandling)
+const initGit = execute => {
+  execute('git init', {cwd: cwd}, errorHandling)
+  return "I've initialized git"
 }
 
-module.exports = { createAction, createComponent, createDirectory, createMethod, createReactApp, createReducer, createStateModule, initGit }
+module.exports = { createAction, createActions, createComponent, createDirectory, createMethod, createReactApp, createReducers, createStateModule, initGit }
+
+
+
