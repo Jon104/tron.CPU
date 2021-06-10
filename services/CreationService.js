@@ -59,6 +59,7 @@ const createStateModule = (ws, { name }) => {
 }
 
 const createReactApp = (execute, { name }) => {
+  // todo requires lowerletters
   execute( `npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
   return "I've created a react application"
 }
