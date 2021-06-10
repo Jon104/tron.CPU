@@ -9,6 +9,8 @@
   "devDependencies": {
     "dotenv": "^10.0.0",
     "eslint": "^7.27.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "jest": "^27.0.4",
     "nodemon": "^2.0.7"
   },
   "description": "J.A.R.V.I.S is your personal bot that helps you create faster and better React applications",
@@ -23,8 +25,10 @@
   "name": "just-a-rather-very-intelligent-system",
   "main": "index.js",
   "scripts": {
+    "coverage": "jest --coverage",
     "start-dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest"
   },
   "version": "0.0.1"
 }
