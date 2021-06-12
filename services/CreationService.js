@@ -5,6 +5,9 @@ const { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, e
 const { formatActionFilepath, formatComponentFilepath, formatReducerFilepath } = require('./fileUtils')
 
 const createAction = (name, file) => {
+  if (!fs.existsSync(formatActionFilepath(file))) createActions(file)
+  createMethod(name, formatActionFilepath(file), actionGetMethodTemplate(name))
+  return `I created an action called ${name} in to the file ${file}`
 }
 
 const createActions = name => {
