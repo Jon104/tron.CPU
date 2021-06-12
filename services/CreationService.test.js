@@ -12,7 +12,7 @@ describe('Creation Service', () => {
   describe('Create a React Application', () => {
     it('should call exec with create-react-app, currentWorkingDirectory and error parameters', (name = 'defaultName') => {
       const exec = jest.fn();
-      createReactApp(exec, { name })
+      createReactApp(exec, name)
       
       expect(exec)
         .toBeCalledWith(
