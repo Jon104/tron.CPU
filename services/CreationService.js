@@ -4,11 +4,7 @@ const { errorHandling } = require('./ErrorHandlers')
 const { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
 const { formatActionFilepath, formatComponentFilepath, formatReducerFilepath } = require('./fileUtils')
 
-// todo remove websocket from here return string
-const createAction = (ws, { name, file }) => {
-  if (!fs.existsSync(`${file}Actions.js`)) createActions(ws, file) // todo ask the user to confirm creation  
-  createMethod(ws, name, `${actions}${file}Actions.js`, actionGetMethodTemplate(name))
-  // add to export
+const createAction = (name, file) => {
 }
 
 const createActions = name => {
@@ -53,12 +49,12 @@ const createReducers = name => {
   return `I created a reducer called ${name}`
 }
 
-const createStateModule = (ws, { name }) => {
+const createStateModule = name => {
   createReducers(ws, name)
   createAction(ws, name)
 }
 
-const createReactApp = (execute, { name }) => {
+const createReactApp = (execute, name) => {
   // todo requires lowerletters
   execute( `npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
   return "I've created a react application"

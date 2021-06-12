@@ -26,13 +26,13 @@ const executeCommand = (parsedData, ws) => {
     case 'deletePackage': return removePackage(ws, parsedData.parameters);
     case 'createDir': return createDirectory(ws, parsedData.parameters);
     case 'initGit': return initGit(exec);
-    case 'createReactApp': return createReactApp(exec, parsedData.parameters);
-    case 'createAction': return createAction(ws, parsedData.parameters);
-    case 'createActions': return createActions(ws, parsedData.parameters);
+    case 'createReactApp': return createReactApp(exec, parsedData.parameters.name);
+    case 'createAction': return createAction(parsedData.parameters.name, parsedData.parameters.file);
+    case 'createActions': return createActions(parsedData.parameters.name);
     case 'createComponent': return createComponent(parsedData.parameters.name);
     case 'createMethod': return createMethod(ws, parsedData.parameters);
     case 'createReducers': return createReducers(parsedData.parameters.name);
-    case 'createStateModule': return createStateModule(ws, parsedData.parameters);
+    case 'createStateModule': return createStateModule(parsedData.parameters.name);
     case 'workModeEnabled': return enableWorkMode(ws);
     case 'salutation': return salute();
     case 'stopMusic': return stopMusic();
