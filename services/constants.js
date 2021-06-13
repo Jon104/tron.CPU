@@ -1,5 +1,5 @@
 const codeDirectory = '/home/jarvis/code/';
-const cwd = codeDirectory + 'just-a-rather-very-intelligent-system/';
+const cwd = codeDirectory + 'tron/';
 const src = 'src/'
 
 const actions = cwd + src + 'actions/'
@@ -8,4 +8,9 @@ const components = cwd + src + 'components/'
 const reducers = cwd + src + 'reducers/'
 const reducersIndex = reducers + 'index.js' 
 
-module.exports = { actions, actionsIndex, codeDirectory, components, cwd, reducers, reducersIndex }
+const SUCCESS = 'SUCCESS'
+const ERROR = 'ERROR'
+
+const lineBreaks = "\n";
+
+module.exports = { actions, actionsIndex, codeDirectory, components, cwd, ERROR, lineBreaks, reducers, reducersIndex, SUCCESS }

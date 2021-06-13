@@ -10,8 +10,7 @@ const {
   createStateModule,
   initGit } = require('./services/CreationService');
 const { exec } = require("child_process");
-const { salute } = require('./services/DialogueService')
-const { enableWorkMode, howAreYou, thanks } = require('./services/DialogueService')
+const { addOrigin, initGit } = require('./services/GitService')
 const { stopMusic } = require('./services/MusicService')
 
 module.exports = (ws, data) => {
@@ -22,7 +21,9 @@ module.exports = (ws, data) => {
 
 const executeCommand = (parsedData, ws) => {
   switch (parsedData.command) {
+    case 'addOrigin': return addOrigin(parsedData.parameters) // not yet supported
     case 'addPackage': return addPackage(ws, parsedData.parameters);
+    case 'addPhysicsSphere': return addPhysicsSphere(parsedData.parameters)
     case 'deletePackage': return removePackage(ws, parsedData.parameters);
     case 'createDir': return createDirectory(ws, parsedData.parameters);
     case 'initGit': return initGit(exec);
