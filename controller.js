@@ -1,4 +1,5 @@
 const { addPackage, removePackage } = require('./services/PackageService');
+const { addPhysicsSphere } = require('./services/3dService')
 const { 
   createAction,
   createActions,
@@ -7,16 +8,16 @@ const {
   createMethod, 
   createReactApp, 
   createReducers,
-  createStateModule,
-  initGit } = require('./services/CreationService');
+  createStateModule } = require('./services/CreationService');
 const { exec } = require("child_process");
+const { enableWorkMode, howAreYou, salute, thanks } = require('./services/DialogueService')
 const { addOrigin, initGit } = require('./services/GitService')
 const { stopMusic } = require('./services/MusicService')
 
 module.exports = (ws, data) => {
   const parsedData = JSON.parse(data)
   const response = executeCommand(parsedData, ws);
-  ws.send(response)
+  ws.send(response.message)
 }
 
 const executeCommand = (parsedData, ws) => {
@@ -26,7 +27,6 @@ const executeCommand = (parsedData, ws) => {
     case 'addPhysicsSphere': return addPhysicsSphere(parsedData.parameters)
     case 'deletePackage': return removePackage(ws, parsedData.parameters);
     case 'createDir': return createDirectory(ws, parsedData.parameters);
-    case 'initGit': return initGit(exec);
     case 'createReactApp': return createReactApp(exec, parsedData.parameters.name);
     case 'createAction': return createAction(parsedData.parameters.name, parsedData.parameters.file);
     case 'createActions': return createActions(parsedData.parameters.name);
@@ -34,6 +34,7 @@ const executeCommand = (parsedData, ws) => {
     case 'createMethod': return createMethod(ws, parsedData.parameters);
     case 'createReducers': return createReducers(parsedData.parameters.name);
     case 'createStateModule': return createStateModule(parsedData.parameters.name);
+    case 'initGit': return initGit(exec); // not yet supported
     case 'workModeEnabled': return enableWorkMode(ws);
     case 'salutation': return salute();
     case 'stopMusic': return stopMusic();

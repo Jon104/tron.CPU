@@ -1,11 +1,10 @@
-const { createActions, createReactApp, initGit, createReducers, createComponent } = require('./CreationService')
+const { createActions, createReactApp, createReducers, createComponent } = require('./CreationService')
 const { errorHandling } = require('./ErrorHandlers')
 const { actions, actionsIndex, codeDirectory, components, cwd, reducers, reducersIndex } = require('./constants')
 const { actionsIndexTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
-const fs = require('fs');
-        // expect(fs.writeFile).toBeCalledWith(formatReducerFilepath(name), reducerBasicTemplate(name), errorHandling)
 const { formatActionFilepath, formatComponentFilepath, formatReducerFilepath } = require('./fileUtils');
 
+const fs = require('fs');
 jest.mock('fs')
 
 describe('Creation Service', () => {
@@ -26,26 +25,6 @@ describe('Creation Service', () => {
       const exec = jest.fn();
       expect(createReactApp(exec, { name }))
         .toBe("I've created a react application")
-    })
-  })
-
-  describe('Initialise a git repository', () => {
-    it('should call exec with git init, current working directory and errorhandler', () => {
-      const exec = jest.fn();
-      initGit(exec)
-      
-      expect(exec)
-        .toBeCalledWith(
-          'git init', 
-          { cwd: cwd }, 
-          errorHandling
-        )
-    })
-
-    it('should confirm the creation to the user', () => {
-      const exec = jest.fn();
-      expect(initGit(exec))
-        .toBe("I've initialized git")
     })
   })
 

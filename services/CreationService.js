@@ -30,11 +30,9 @@ const createDirectory = (ws, { name }) => {
   ws.send(`I created a directory called ${name}!`)
 }
 
-const lineBreaks = "\n";
 const createMethod = (ws, { name, path, template }) => {
   const readStream = fs.readFileSync(path).toString()
   const lines = readStream.split(lineBreaks);
-  console.log()
   lines.splice(lines.length, 0, template)
   // forComponents
   // const test = eachLines.findIndex((current) => current.includes('return'))
@@ -59,16 +57,11 @@ const createStateModule = name => {
 
 const createReactApp = (execute, name) => {
   // todo requires lowerletters
-  execute( `npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
+  execute(`npx create-react-app ${name}`, {cwd: codeDirectory}, errorHandling)
   return "I've created a react application"
 }
 
-const initGit = execute => {
-  execute('git init', {cwd: cwd}, errorHandling)
-  return "I've initialized git"
-}
-
-module.exports = { createAction, createActions, createComponent, createDirectory, createMethod, createReactApp, createReducers, createStateModule, initGit }
+module.exports = { createAction, createActions, createComponent, createDirectory, createMethod, createReactApp, createReducers, createStateModule }
 
 
 
