@@ -13,7 +13,7 @@ const wso = new Server({ server });
 
 wso.on('connection', (ws) => {
   console.log('connected')
-  ws.send("Hello friend, here's Jarvis");
+  ws.send("Hello user, my name is Tron");
   ws.on('message', (data) => controller(ws, data));
 });
 
