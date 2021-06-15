@@ -4,6 +4,10 @@ const { errorHandling } = require('./ErrorHandlers')
 const { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate } = require('./TemplateService')
 const { formatActionFilepath, formatComponentFilepath, formatReducerFilepath } = require('./fileUtils')
 
+const addCodeToFile = (code, filepath) => {
+  
+}
+
 const createAction = (name, file) => {
   if (!fs.existsSync(formatActionFilepath(file))) createActions(file)
   createMethod(name, formatActionFilepath(file), actionGetMethodTemplate(name))
@@ -61,7 +65,7 @@ const createReactApp = (execute, name) => {
   return "I've created a react application"
 }
 
-module.exports = { createAction, createActions, createComponent, createDirectory, createMethod, createReactApp, createReducers, createStateModule }
+module.exports = { addCodeToFile, createAction, createActions, createComponent, createDirectory, createMethod, createReactApp, createReducers, createStateModule }
 
 
 

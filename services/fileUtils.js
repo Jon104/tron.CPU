@@ -1,7 +1,10 @@
 const fs = require('fs')
+const glob = require("glob")
+const { Manifest } = require('./constants')
+const { errorHandling } = require('./ErrorHandlers')
 
 const codeDirectory = '/home/jarvis/code/'
-const cwd = codeDirectory + 'just-a-rather-very-intelligent-system/'
+const cwd = codeDirectory + 'tron/'
 const src = 'src/'
 
 const actions = cwd + src + 'actions/'
@@ -16,7 +19,20 @@ const formatActionFilepath = name => `${name}Actions` + '.js'
 const formatComponentFilepath = name => components.concat(`${name}`) + '.jsx'
 const formatReducerFilepath = name => `${reducers}${name}Reducer` + '.js'
 
+const createFile = (path, content) => fs.writeFile(path, content, errorHandling)
 const readFile = path => fs.readFileSync(path)
 const toLines = stream => stream.split(lineBreaks);
+const toFilepath = filename => glob.sync(cwd.concat('**/*.json'), ignoreConfig).find((element) => element.search(filename) > 0)
 
-module.exports = { formatActionFilepath, formatComponentFilepath, formatReducerFilepath, readFile, toLines }
+const ignoreConfig = {
+    ignore: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/*.test.js'
+    ]
+}
+const isFilePresent = filename =>
+    glob.sync(cwd.concat('**/*.json'), ignoreConfig).find((element) => element.search(filename) > 0) > 0
+
+
+module.exports = { createFile, formatActionFilepath, formatComponentFilepath, formatReducerFilepath, isFilePresent, readFile, toLines, toFilepath }

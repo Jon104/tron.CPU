@@ -44,4 +44,59 @@ const rootReducer = combineReducers({
 export default rootReducer;
 `
 
-module.exports = { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, reducerBasicTemplate, reducerIndexTemplate }
+const manifestContent = `
+  name: "Ala",
+  short_name: "appName",
+  description: "olo",
+  icons: [
+    {
+      src: "/_nuxt/icons/icon_64x64.ec0ca4.png",
+      sizes: "64x64",
+      type: "image/png",
+      purpose: "any maskable"
+    },
+    {
+      src: "/_nuxt/icons/icon_120x120.ec0ca4.png",
+      sizes: "120x120",
+      type: "image/png",
+      purpose: "any maskable"
+    },
+    {
+      src: "/_nuxt/icons/icon_144x144.ec0ca4.png",
+      sizes: "144x144",
+      type: "image/png",
+      purpose: "any maskable"
+    },
+    {
+      src: "/_nuxt/icons/icon_152x152.ec0ca4.png",
+      sizes: "152x152",
+      type: "image/png",
+      purpose: "any maskable"
+    },
+    {
+      src: "/_nuxt/icons/icon_192x192.ec0ca4.png",
+      sizes: "192x192",
+      type: "image/png",
+      purpose: "any maskable"
+    },
+    {
+      src: "/_nuxt/icons/icon_384x384.ec0ca4.png",
+      sizes: "384x384",
+      type: "image/png",
+      purpose: "any maskable"
+    },
+    {
+      src: "/_nuxt/icons/icon_512x512.ec0ca4.png",
+      sizes: "512x512",
+      type: "image/png",
+      purpose: "any maskable"
+    }
+  ],
+  start_url: "/?standalone=true",
+  display: "standalone",
+  background_color: "#ffffff",
+  lang: "en",
+  crossorigin: "use-credentials"
+`
+
+module.exports = { actionsIndexTemplate, actionGetMethodTemplate, componentBasicTemplate, emptyFileTemplate, manifestContent, reducerBasicTemplate, reducerIndexTemplate }

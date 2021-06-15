@@ -16,4 +16,7 @@ const initGit = execute => {
     return "I've initialized git"
   }
 
+// const publishBranch = () => execute(git push --set-upstream origin master)
+// const initializePackage = () => npm init --scope=@my-org
+
 module.exports = { addOrigin, initGit }

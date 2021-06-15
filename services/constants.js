@@ -11,6 +11,8 @@ const reducersIndex = reducers + 'index.js'
 const SUCCESS = 'SUCCESS'
 const ERROR = 'ERROR'
 
-const lineBreaks = "\n";
+const lineBreaks = "\n"
 
-module.exports = { actions, actionsIndex, codeDirectory, components, cwd, ERROR, lineBreaks, reducers, reducersIndex, SUCCESS }
+const Manifest = 'manifest.json'
+
+module.exports = { actions, actionsIndex, codeDirectory, components, cwd, ERROR, lineBreaks, Manifest, reducers, reducersIndex, SUCCESS }
