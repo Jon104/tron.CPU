@@ -13,11 +13,9 @@ const ignoreConfig = {
     ]
 }
 
-const addPhysicsSphere = name => {
-    const contentByFiles = glob.sync(cwd.concat(`{**/*.js,**/*.jsx,**/*.html}`), ignoreConfig).map((file) => readFile(file))
-    const lines = contentByFiles.map((content) => content.toString().search('<canvas'))
-    console.log(lines)
-    return { code: SUCCESS, message: 'I added a physics sphere' }
-}
+    // const contentByFiles = glob.sync(cwd.concat(`{**/*.js,**/*.jsx,**/*.html}`), ignoreConfig).map((file) => readFile(file))
+    // const lines = contentByFiles.map((content) => content.toString().search('<canvas'))
+    // console.log(lines)
+const addPhysicsSphere = name => ({ code: SUCCESS, message: 'I added a physics sphere'})
 
 module.exports = { addPhysicsSphere }

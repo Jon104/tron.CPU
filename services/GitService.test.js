@@ -1,5 +1,6 @@
 const { addOrigin, initGit } = require('./GitService')
-const { SUCCESS } = require('./constants')
+const { cwd, SUCCESS } = require('./constants')
+const { errorHandling } = require('./ErrorHandlers')
 
 describe('Git Service', () => {
     describe('Adding an origin', () => {

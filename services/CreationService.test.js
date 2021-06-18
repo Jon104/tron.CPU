@@ -16,7 +16,7 @@ describe('Creation Service', () => {
       expect(exec)
         .toBeCalledWith(
           `npx create-react-app ${name}`, 
-          { cwd: codeDirectory }, 
+          { cwd: cwd }, 
           errorHandling
         )
     })

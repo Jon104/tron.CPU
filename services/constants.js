@@ -1,5 +1,5 @@
 const codeDirectory = '/home/jarvis/code/';
-const cwd = codeDirectory + 'tron/';
+const cwd = codeDirectory + 'tron.bot/';
 const src = 'src/'
 
 const actions = cwd + src + 'actions/'
