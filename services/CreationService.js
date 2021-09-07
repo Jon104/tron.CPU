@@ -48,7 +48,10 @@ const createComponent = (name) => {
     componentBasicTemplate(name),
     errorHandling
   );
-  return `I created a component called ${name}, and I liked it..!`;
+  return {
+    code: SUCCESS,
+    message: `I created a component called ${name}, and I liked it..!`,
+  };
 };
 
 const createDirectory = (ws, { name }) => {
