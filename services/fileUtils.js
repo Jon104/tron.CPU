@@ -2,6 +2,8 @@ const fs = require("fs");
 const glob = require("glob");
 const { Manifest, cwd } = require("./constants");
 const { errorHandling } = require("./ErrorHandlers");
+const { resolve } = require("path");
+const { readdir } = require("fs").promises;
 
 const src = "src/";
 
@@ -17,9 +19,13 @@ const formatActionFilepath = (name) => `${name}Actions` + ".js";
 const formatComponentFilepath = (name) => components.concat(`${name}`) + ".jsx";
 const formatReducerFilepath = (name) => `${reducers}${name}Reducer` + ".js";
 
-const createFile = (path, content) =>
-  fs.writeFile(path, content, errorHandling);
-const readFile = (path) => fs.readFileSync(path);
+const copyFile = (src, dest) =>
+  fs.copyFile(src, dest, (err) => {
+    if (err) throw err;
+    console.log("source.txt was copied to destination.txt");
+  });
+const writeFile = (path, content) => fs.writeFile(path, content, errorHandling);
+const readFile = (path) => fs.readFileSync(path).toString();
 const toLines = (stream) => stream.split(lineBreaks);
 const toFilepath = (filename) =>
   glob
@@ -29,13 +35,22 @@ const toFilepath = (filename) =>
 const ignoreConfig = {
   ignore: ["**/node_modules/**", "**/.git/**", "**/*.test.js"],
 };
-const isFilePresent = (filename) =>
+
+const isFilePresent = (filename, pattern) =>
   glob
-    .sync(cwd.concat("**/*.json"), ignoreConfig)
-    .find((element) => element.search(filename) > 0) > 0;
+    .sync(cwd.concat(`**/*.${pattern}`), ignoreConfig)
+    .find((element) => element.search(filename) > 0);
+
+const doesStringExist = (searchString, pattern) => {
+  const files = glob
+    .sync(cwd.concat(`**/*.${pattern}`, ignoreConfig))
+    .find((element) => console.log(readFile(element)));
+};
 
 module.exports = {
-  createFile,
+  copyFile,
+  writeFile,
+  doesStringExist,
   formatActionFilepath,
   formatComponentFilepath,
   formatReducerFilepath,

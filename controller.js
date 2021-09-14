@@ -9,6 +9,7 @@ const {
   createReactApp,
   createReducers,
   createStateModule,
+  addToComponent,
 } = require("./services/CreationService");
 const { exec } = require("child_process");
 const {
@@ -35,6 +36,8 @@ const executeCommand = (parsedData, ws) => {
       return addPackage(ws, parsedData.parameters);
     case "addPhysicsSphere":
       return addPhysicsSphere(parsedData.parameters);
+    case "addToComponent":
+      return addToComponent(parsedData.parameters);
     case "deletePackage":
       return removePackage(ws, parsedData.parameters);
     case "createDirectory":

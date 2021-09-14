@@ -8,6 +8,7 @@ const {
   reducers,
   reducersIndex,
   SUCCESS,
+  lineBreaks,
 } = require("./constants");
 const { errorHandling } = require("./ErrorHandlers");
 const {
@@ -22,9 +23,47 @@ const {
   formatActionFilepath,
   formatComponentFilepath,
   formatReducerFilepath,
+  readFile,
+  toLines,
+  writeFile,
+  copyFile,
 } = require("./fileUtils");
 
 const addCodeToFile = (code, filepath) => {};
+
+const addToComponent = ({ prevComponent, newComponent }) => {
+  if (!fs.existsSync(components.concat("/tron")))
+    fs.mkdirSync(components.concat("/tron"));
+
+  const src = `${__dirname}/templates/components/${newComponent}.jsx`;
+  const destination = `${cwd}src/components/tron/BurgerMenu.jsx`;
+  copyFile(src, destination);
+
+  const path = cwd + "src/" + prevComponent + ".js";
+  const lines = readFile(path);
+  const linesArray = lines.split(lineBreaks);
+
+  linesArray.splice(
+    0,
+    0,
+    `import ${newComponent} from 'components/tron/${newComponent}'`
+  );
+
+  const htmlSectionBeginningIndex = linesArray.findIndex(
+    (line) => line.indexOf("<") > -1
+  );
+  linesArray.splice(
+    htmlSectionBeginningIndex + 1,
+    0,
+    `      <${newComponent} />`
+  );
+
+  const linesWithBreakLine = linesArray.map((line) => line + lineBreaks);
+  const cleanedUpLines = linesWithBreakLine.toString().replace(/,/g, "");
+
+  writeFile(path, cleanedUpLines);
+  return `I added element to Component`;
+};
 
 const createAction = (name, file) => {
   if (!fs.existsSync(formatActionFilepath(file))) createActions(file);
@@ -98,6 +137,7 @@ const createReactApp = (execute, name) => {
 
 module.exports = {
   addCodeToFile,
+  addToComponent,
   createAction,
   createActions,
   createComponent,
