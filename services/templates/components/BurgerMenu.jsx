@@ -83,7 +83,7 @@ const Drawer = styled.div`
   height: 100vh;
   right: 0;
   width: 0%;
-  background-color: blue;
+  background-color: #ffffff;
   transition: width 0.8s cubic-bezier(0.2, -0.6, 0.3, 1.6) 0.1s;
 
   ${(props) =>
@@ -106,8 +106,9 @@ const LeftPanel = styled.img`
   left: -25%;
   transform: translate(50%, -50%);
   height: 100vh;
-  width: 50%;
+  width: 45%;
   z-index: 99;
+  opacity: 0.8;
   background-image: url("./LeftPanelPicture.jpeg");
 `;
 
