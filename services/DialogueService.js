@@ -1,3 +1,7 @@
+const {
+  SUCCESS,
+} = require("./constants");
+
 const enableWorkMode = ws => {
   // todo
   // Currently, the music is handled clientside
@@ -6,7 +10,7 @@ const enableWorkMode = ws => {
   ws.send("PlayWeBuiltThisCity") 
 }
 const howAreYou = () => "I'm good. How about you?"
-const salute = () => 'Hello to you my dear old friend.'
+const salute = () => ({ code: SUCCESS, message: 'Hello to you my dear old friend.' });
 const thanks = () => 'Ohhh how lovely........!'
 
 module.exports = { enableWorkMode, howAreYou, salute, thanks }
