@@ -9,6 +9,7 @@ const {
   reducersIndex,
   SUCCESS,
   lineBreaks,
+  ERROR,
 } = require("./constants");
 const { errorHandling } = require("./ErrorHandlers");
 const {
@@ -68,7 +69,10 @@ const addToComponent = ({ prevComponent, newComponent }) => {
 const createAction = (name, file) => {
   if (!fs.existsSync(formatActionFilepath(file))) createActions(file);
   createMethod(name, formatActionFilepath(file), actionGetMethodTemplate(name));
-  return `I created an action called ${name} in to the file ${file}`;
+  return {
+    code: SUCCESS,
+    message: `I created an action called ${name} in to the file ${file}`,
+  }
 };
 
 const createActions = (name) => {
@@ -77,7 +81,11 @@ const createActions = (name) => {
     fs.writeFile(actionsIndex, actionsIndexTemplate(name), errorHandling);
 
   fs.writeFile(formatActionFilepath(name), emptyFileTemplate(), errorHandling);
-  return `I created an Action called ${name}!`;
+
+  return {
+    code: SUCCESS,
+    message: `I created an Action called ${name}!`,
+  }
 };
 
 const createComponent = (name) => {
@@ -87,6 +95,7 @@ const createComponent = (name) => {
     componentBasicTemplate(name),
     errorHandling
   );
+  
   return {
     code: SUCCESS,
     message: `I created a component called ${name}, and I liked it..!`,
@@ -111,6 +120,11 @@ const createMethod = (ws, { name, path, template }) => {
   ws.send(`I create the method called ${name}`);
 };
 
+const createReactApp = (execute, name) => {
+  // todo requires lowerletters
+  execute(`npx create-react-app ${name}`, { cwd: cwd }, errorHandling);
+  return { code: SUCCESS, message: "I've created a react application" };
+};
 const createReducers = (name) => {
   if (!fs.existsSync(reducers)) fs.mkdirSync(reducers);
   if (!fs.existsSync(reducersIndex))
@@ -125,14 +139,10 @@ const createReducers = (name) => {
 };
 
 const createStateModule = (name) => {
-  createReducers(ws, name);
-  createAction(ws, name);
-};
-
-const createReactApp = (execute, name) => {
-  // todo requires lowerletters
-  execute(`npx create-react-app ${name}`, { cwd: cwd }, errorHandling);
-  return { code: SUCCESS, message: "I've created a react application" };
+  const reducerResponse = createReducers(name);
+  const actionResponse = createActions(name);
+  if (reducerResponse.code === SUCCESS && actionResponse.code === SUCCESS) return { code: SUCCESS, message: `I created a state module called ${name}` }
+  else return { code: ERROR, message: `I failed to create a module` }
 };
 
 module.exports = {
